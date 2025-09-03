@@ -68,15 +68,37 @@ export default function Dashboard() {
     fetchDashboardData()
   }, [fetchDashboardData])
 
-  const handleConnectionChange = (platform: 'github' | 'linkedin', connected: boolean) => {
+  const handleConnectionChange = useCallback((platform: 'github' | 'linkedin', connected: boolean) => {
     setConnections(prev => ({
       ...prev,
       [platform]: connected
     }))
-    
+
     // Refresh data summary when connections change
     if (connected) {
       setTimeout(fetchDashboardData, 1000)
+    }
+  }, [fetchDashboardData])
+
+  const handleGitHubConnect = async () => {
+    try {
+      const token = await getToken()
+      if (!token) return
+
+      const backendUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'
+      const response = await fetch(`${backendUrl}/api/github/connect`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      })
+      const data = await response.json()
+      if (data.authUrl) {
+        window.location.href = data.authUrl
+      }
+    } catch (error) {
+      console.error('Failed to initiate GitHub connection', error)
     }
   }
 
@@ -126,9 +148,9 @@ export default function Dashboard() {
               <h2 className="text-xl font-semibold text-gray-900 mb-4">Account Connections</h2>
               
               <div className="space-y-4">
-                <GitHubConnection onConnectionChange={(connected) => 
-                  handleConnectionChange('github', connected)
-                } />
+                <GitHubConnection 
+                  onConnectionChange={(connected) => handleConnectionChange('github', connected)}
+                />
                 <LinkedInConnection onConnectionChange={(connected) => 
                   handleConnectionChange('linkedin', connected)
                 } />

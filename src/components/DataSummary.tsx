@@ -34,7 +34,7 @@ export default function DataSummary({ summary, connections, onRefresh }: DataSum
     try {
       const token = await getToken()
       const backendUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'
-      const response = await fetch(`${backendUrl}/api/data/refresh`, {
+      const response = await fetch(`${backendUrl}/api/data/fetch`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,

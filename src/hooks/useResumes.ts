@@ -39,7 +39,8 @@ export function useResumes() {
     } finally {
       setLoading(false)
     }
-  }, [getToken])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const downloadResume = useCallback(async (
     resumeId: string, 

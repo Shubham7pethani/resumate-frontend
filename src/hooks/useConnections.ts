@@ -31,7 +31,6 @@ export function useConnections() {
       const token = await getToken()
       const backendUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'
       
-      // Fetch overall connection status
       const response = await fetch(`${backendUrl}/api/auth/connections`, {
         headers: { 'Authorization': `Bearer ${token}` }
       })
@@ -58,7 +57,8 @@ export function useConnections() {
     } finally {
       setLoading(false)
     }
-  }, [getToken])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const connectGitHub = useCallback(async () => {
     setConnections(prev => ({

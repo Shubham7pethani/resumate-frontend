@@ -56,7 +56,7 @@ export default function PrivacyPolicy() {
             <section className="mb-8">
               <h2 className="text-2xl font-semibold text-gray-900 mb-4">Contact Us</h2>
               <p className="text-gray-700">
-                If you have any questions about this Privacy Policy, please contact us at privacy@resumate.com
+                If you have any questions about this Privacy Policy, please contact us at +91 8149576445.
               </p>
             </section>
           </div>

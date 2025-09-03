@@ -9,10 +9,11 @@ interface GitHubConnectionProps {
 export default function GitHubConnection({ onConnectionChange }: GitHubConnectionProps) {
   const { connections, actions } = useConnections()
   
-  // Notify parent of connection changes
+  // Notify parent of connection changes (avoid infinite loops by not depending on callback identity)
   React.useEffect(() => {
     onConnectionChange?.(connections.github.connected)
-  }, [connections.github.connected, onConnectionChange])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [connections.github.connected])
 
   return (
     <ConnectionCard
