@@ -1,5 +1,7 @@
 "use client";
 
+import type { JSX } from "react";
+
 import React, { useEffect, useRef } from "react";
 
 type RevealProps = {
