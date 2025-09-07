@@ -76,11 +76,11 @@ export default function Toast({ id, type, title, message, duration = 5000, onClo
       )
     },
     info: {
-      bgColor: 'bg-blue-50',
-      borderColor: 'border-blue-200',
-      iconColor: 'text-blue-400',
-      titleColor: 'text-blue-800',
-      messageColor: 'text-blue-700',
+      bgColor: 'bg-[#FFF1F1]',
+      borderColor: 'border-[#FBD0D0]',
+      iconColor: 'text-[#F15B5B]',
+      titleColor: 'text-[#A83E3E]',
+      messageColor: 'text-[#B44A4A]',
       icon: (
         <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
           <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />

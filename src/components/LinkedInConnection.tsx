@@ -1,6 +1,7 @@
 import React from 'react'
 import ConnectionCard from './ConnectionCard'
 import { useConnections } from '@/hooks/useConnections'
+import LinkedInCsvUploader from './LinkedInCsvUploader'
 
 interface LinkedInConnectionProps {
   onConnectionChange?: (connected: boolean) => void
@@ -16,15 +17,21 @@ export default function LinkedInConnection({ onConnectionChange }: LinkedInConne
   }, [connections.linkedin.connected])
 
   return (
-    <ConnectionCard
-      platform="linkedin"
-      connected={connections.linkedin.connected}
-      username={connections.linkedin.linkedinId}
-      loading={connections.linkedin.loading}
-      error={connections.linkedin.error}
-      onConnect={actions.connectLinkedIn}
-      onDisconnect={actions.disconnectLinkedIn}
-      onClearError={() => actions.clearError('linkedin')}
-    />
+    <div className="space-y-2">
+      <ConnectionCard
+        platform="linkedin"
+        connected={connections.linkedin.connected}
+        username={connections.linkedin.linkedinId}
+        loading={connections.linkedin.loading}
+        error={connections.linkedin.error}
+        onConnect={actions.connectLinkedIn}
+        onDisconnect={actions.disconnectLinkedIn}
+        onClearError={() => actions.clearError('linkedin')}
+      />
+
+      {connections.linkedin.connected && (
+        <LinkedInCsvUploader onUploaded={actions.refresh} />
+      )}
+    </div>
   )
 }

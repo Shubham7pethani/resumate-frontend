@@ -1,0 +1,18 @@
+/* Smooth route transitions */
+:root {
+    --page-transition-duration: 280ms;
+}
+
+/* Wrapper to fade between routes (applied via body) */
+html body {
+    transition: opacity var(--page-transition-duration) ease;
+}
+
+/* Optional class: add on route start/end in _app or middleware if needed */
+body.route-change-start {
+    opacity: .6;
+}
+
+body.route-change-end {
+    opacity: 1;
+}

@@ -1,14 +1,14 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-  /* Theme brand colors used across the site */
-  --brand: #4f46e5;
-  /* default brand (indigo-600 fallback) */
-  --brand-hover: #4338ca;
-  /* indigo-700 fallback */
-  --brand-ring: rgba(79, 70, 229, 0.4);
+  --background: #000000;
+  --foreground: #e5e7eb;
+  /* Brand colors */
+  --brand: #F15B5B;
+  /* coral red */
+  --brand-hover: #C53030;
+  /* darker red for better contrast on hover */
+  --brand-ring: rgba(241, 91, 91, 0.4);
 }
 
 @theme inline {
@@ -26,11 +26,170 @@
 }
 
 body {
-  background: var(--background);
+  background: radial-gradient(1200px 800px at 10% -10%, rgba(255, 91, 91, 0.08) 0%, transparent 60%),
+    radial-gradient(1000px 600px at 90% 10%, rgba(241, 91, 91, 0.06) 0%, transparent 60%),
+    #000;
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
 
+/* Magnetic button + ripple + shimmer */
+.magnetic {
+  position: relative;
+  overflow: hidden;
+}
+
+.magnetic:hover {
+  transform: translateY(-1px);
+}
+
+/* Ripple on click */
+.magnetic:active::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(255, 255, 255, .35), transparent 60%);
+  animation: ripple .6s ease-out;
+}
+
+@keyframes ripple {
+  from {
+    opacity: .8;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+/* Shimmer for CTA */
+.shimmer {
+  position: relative;
+  overflow: hidden;
+}
+
+.shimmer::before {
+  content: "";
+  position: absolute;
+  inset: -50% -20%;
+  background: linear-gradient(110deg, transparent 30%, rgba(255, 255, 255, .45) 50%, transparent 70%);
+  transform: translateX(-120%);
+}
+
+.shimmer:hover::before {
+  animation: shine 1.2s ease;
+}
+
+@keyframes shine {
+  to {
+    transform: translateX(120%);
+  }
+}
+
+/* Brand basics */
+::selection {
+  background: var(--brand);
+  color: #fff;
+}
+
+a {
+  color: var(--brand);
+}
+
+a:hover {
+  color: var(--brand-hover);
+}
+
+/* Simple utility classes for brand buttons with pro interactions */
+.btn-brand {
+  background-color: var(--brand);
+  color: #fff;
+  transition: background-color 180ms ease, transform 220ms ease, box-shadow 220ms ease;
+  box-shadow: 0 6px 14px rgba(241, 91, 91, 0.22);
+}
+
+.btn-brand:hover {
+  background-color: var(--brand-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 10px 22px rgba(241, 91, 91, 0.28);
+}
+
+.btn-brand:active {
+  transform: translateY(0);
+  box-shadow: 0 6px 14px rgba(241, 91, 91, 0.22);
+}
+
+.btn-brand:focus {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--brand-ring), 0 6px 14px rgba(241, 91, 91, 0.22);
+}
+
+.btn-outline-brand {
+  border: 1px solid var(--brand);
+  color: var(--brand);
+  background: transparent;
+  transition: background-color 180ms ease, color 180ms ease, transform 220ms ease, box-shadow 220ms ease;
+}
+
+.btn-outline-brand:hover {
+  background-color: var(--brand);
+  color: #000;
+  transform: translateY(-1px);
+  box-shadow: 0 10px 22px rgba(241, 91, 91, 0.18);
+}
+
+.btn-outline-brand:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+.btn-outline-brand:focus {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--brand-ring);
+}
+
+/* Professional cursor-fill outline button */
+.btn-fill {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--brand);
+  color: var(--brand);
+  background: transparent;
+  transition: color 180ms ease, transform 220ms ease, box-shadow 220ms ease;
+}
+
+.btn-fill::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--brand);
+  clip-path: circle(var(--r, 0%) at var(--mx, 50%) var(--my, 50%));
+  transition: clip-path 320ms ease;
+  pointer-events: none;
+  z-index: -1;
+  /* keep fill behind the text */
+}
+
+.btn-fill:hover {
+  color: #fff;
+  /* ensure strong contrast on brand background */
+  transform: translateY(-1px);
+  box-shadow: 0 10px 22px rgba(241, 91, 91, 0.18);
+}
+
+.btn-fill:hover::before {
+  --r: 150%;
+}
+
+.btn-fill>* {
+  position: relative;
+  z-index: 1;
+  /* keep label above the fill */
+}
+
+/************************
+ * Motion & Animations  *
+ ************************/
 /* Floating FAB subtle bounce animation */
 @keyframes fab-bounce {
   0%, 100% {
@@ -44,4 +203,135 @@ body {
 
 .animate-fab-bounce {
   animation: fab-bounce 2.2s ease-in-out infinite;
+}
+
+/* Reveal base */
+.reveal {
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+}
+
+/* Variants */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slide-left {
+  from {
+    opacity: 0;
+    transform: translateX(24px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slide-right {
+  from {
+    opacity: 0;
+    transform: translateX(-24px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes zoom {
+  from {
+    opacity: 0;
+    transform: scale(.96);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.reveal-fade-up {
+  animation: fade-up 700ms cubic-bezier(.22, .7, .2, 1) both;
+}
+
+.reveal-slide-left {
+  animation: slide-left 720ms cubic-bezier(.22, .7, .2, 1) both;
+}
+
+.reveal-slide-right {
+  animation: slide-right 720ms cubic-bezier(.22, .7, .2, 1) both;
+}
+
+.reveal-zoom {
+  animation: zoom 500ms cubic-bezier(.22, .7, .2, 1) both;
+}
+
+/* Stagger utility (apply to parent) */
+.stagger>* {
+  opacity: 0;
+  animation: fade-up 650ms cubic-bezier(.22, .7, .2, 1) forwards;
+}
+
+.stagger>*:nth-child(1) {
+  animation-delay: 60ms;
+}
+
+.stagger>*:nth-child(2) {
+  animation-delay: 120ms;
+}
+
+.stagger>*:nth-child(3) {
+  animation-delay: 180ms;
+}
+
+.stagger>*:nth-child(4) {
+  animation-delay: 240ms;
+}
+
+.stagger>*:nth-child(5) {
+  animation-delay: 300ms;
+}
+
+/* Parallax subtle float */
+@keyframes floaty {
+  0% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-6px);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.floaty {
+  animation: floaty 6s ease-in-out infinite;
+}
+
+/* Card hover lift */
+.card-pro {
+  transition: transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease;
+}
+
+.card-pro:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, .06);
+  border-color: #f2bcbc !important;
 }
