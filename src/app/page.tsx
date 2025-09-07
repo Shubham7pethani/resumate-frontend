@@ -1,5 +1,10 @@
 import { SignedIn, SignedOut } from '@clerk/nextjs'
 import Link from 'next/link'
+import GitHubConnection from '@/components/GitHubConnection';
+import LinkedInConnection from '@/components/LinkedInConnection';
+import DataSummary from '@/components/DataSummary';
+import ResumeGenerator from '@/components/ResumeGenerator';
+import ResumeList from '@/components/ResumeList';
 
 import Reveal from '@/components/Reveal';
 import CountUp from '@/components/CountUp';
