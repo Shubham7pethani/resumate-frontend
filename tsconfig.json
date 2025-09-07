@@ -21,10 +21,10 @@
       "react",
       "node"
     ],
-    "baseUrl": "./src",
+    "baseUrl": ".",             // changed from ./src to root
     "paths": {
       "@/*": [
-        "*"
+        "app/*"
       ]
     },
     "incremental": true,
