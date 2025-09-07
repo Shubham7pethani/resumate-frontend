@@ -1,8 +1,9 @@
 import { SignedIn, SignedOut } from '@clerk/nextjs'
 import Link from 'next/link'
-import Reveal from '@/components/Reveal'
-import CountUp from '@/components/CountUp'
-import CursorFillLink from '@/components/CursorFillLink'
+
+import Reveal from '@/components/Reveal';
+import CountUp from '@/components/CountUp';
+import CursorFillLink from '@/components/CursorFillLink';
 
 export default function Home() {
   return (
